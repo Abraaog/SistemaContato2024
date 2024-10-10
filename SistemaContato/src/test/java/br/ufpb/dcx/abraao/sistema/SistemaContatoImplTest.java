@@ -70,4 +70,3 @@ public class SistemaContatoImplTest implements SistemaContato {
         return new ArrayList<>(contatos.values());
     }
 }
-

@@ -2,7 +2,30 @@ package br.ufpb.dcx.abraao.contato;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import br.ufpb.dcx.abraao.sistema.SistemaContatoImpl;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
 class ContatoTest {
+
+    @Test
+    void testValidarDados() {
+        SistemaContatoImpl sistema = new SistemaContatoImpl();
+        Contato contatoValido = new Contato("João", "Silva", "123456789", "joao@example.com", null);
+        assertDoesNotThrow(() -> sistema.validarDados(contatoValido));
+
+        Contato contatoSemNome = new Contato("", "Silva", "123456789", "joao@example.com", null);
+        assertThrows(IllegalArgumentException.class, () -> sistema.validarDados(contatoSemNome));
+
+        Contato contatoSemSobrenome = new Contato("João", "", "123456789", "joao@example.com", null);
+        assertThrows(IllegalArgumentException.class, () -> sistema.validarDados(contatoSemSobrenome));
+
+        Contato contatoSemTelefone = new Contato("João", "Silva", "", "joao@example.com", null);
+        assertThrows(IllegalArgumentException.class, () -> sistema.validarDados(contatoSemTelefone));
+
+        Contato contatoSemEmail = new Contato("João", "Silva", "123456789", "", null);
+        assertThrows(IllegalArgumentException.class, () -> sistema.validarDados(contatoSemEmail));
+    }
 
     @org.junit.jupiter.api.Test
     void updateContactDetails() {

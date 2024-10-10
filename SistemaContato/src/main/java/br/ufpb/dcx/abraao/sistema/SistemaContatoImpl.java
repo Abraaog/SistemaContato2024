@@ -13,8 +13,24 @@ public class SistemaContatoImpl implements SistemaContato {
         this.contatos = new HashMap<>();
     }
 
+    public void validarDados(Contato contato) {
+        if (contato.getNome() == null || contato.getNome().isEmpty()) {
+            throw new IllegalArgumentException("Nome não pode ser nulo ou vazio");
+        }
+        if (contato.getSobrenome() == null || contato.getSobrenome().isEmpty()) {
+            throw new IllegalArgumentException("Sobrenome não pode ser nulo ou vazio");
+        }
+        if (contato.getTelefone() == null || contato.getTelefone().isEmpty()) {
+            throw new IllegalArgumentException("Telefone não pode ser nulo ou vazio");
+        }
+        if (contato.getEmail() == null || contato.getEmail().isEmpty()) {
+            throw new IllegalArgumentException("Email não pode ser nulo ou vazio");
+        }
+    }
+
     @Override
     public void adicionarContato(Contato contato) {
+        validarDados(contato);
         contatos.put(contato.getNome(), contato);
     }
 
